@@ -1,0 +1,183 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.page-background {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../images/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-header {
+    color: white;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 70px;
+    line-height: 100%;
+    letter-spacing: 0;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+
+.login-form {
+    padding: 40px;
+    border: 16px;
+    border-radius: 96px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 100%;
+    height: 100%;
+    max-width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(60, 60, 60, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+
+.form-title {
+    font-size: 60px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.input-wrapper {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50px;
+    padding: 35px;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-size: 20px;
+    font-weight: 600;
+    font-style: semibold;
+    line-height: 100%;
+    display: block;
+    margin-bottom: 8px;
+    margin-left: 20px;
+    color: #363636;
+}
+
+input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    color: #333;
+}
+
+.forgot-password {
+    margin-top: -40px;
+    margin-bottom: 5px;
+    display: block;
+    text-align: right;
+    font-size: 18px;
+    outline: none;
+}
+
+.submit-button {
+    font-weight: 400;
+    font-size: 24px;
+    width: 100%;
+    max-width: 191px;
+    padding: 25px;
+    background-color: #00AE14;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s;
+}
+
+.signup-link {
+    display: block;
+    margin-top: -20px;
+    /* משיכה למעלה לכיוון הכפתור */
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    outline: none;
+}
+
+@media (max-width: 600px) {
+
+    /* תיקון לוגו וכותרת כדי שלא יתפסו את כל המסך */
+    .logo-header {
+        font-size: 28px;
+        margin-bottom: 5px;
+    }
+
+    .form-title {
+        font-size: 36px;
+        margin: 0 0 15px 0;
+    }
+
+    /* תיקון אינפוטים - הורדת ה-Padding המוגזם */
+    .input-wrapper {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50px;
+        padding: 10px 20px;
+        /* זה היה 35px וזה מה שעיוות את הכל */
+        display: flex;
+        align-items: center;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        height: 45px;
+        /* הגדרת גובה קבוע */
+    }
+
+    /* תיקון המרווחים בטופס */
+    .login-form {
+        padding: 30px 20px !important;
+        /* הפחתה לנייד */
+        gap: 15px !important;
+        /* צמצום ה-Gap הכללי */
+        border-radius: 30px !important;
+    }
+
+    /* תיקון הקישורים */
+    .forgot-password {
+        margin-top: -5px;
+        /* קירוב לסיסמה */
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .signup-link {
+        margin-top: -5px;
+        font-size: 16px;
+    }
+}
