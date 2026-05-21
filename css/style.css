@@ -39,7 +39,7 @@ body {
 }
 
 
-.login-form {
+.auth-form {
     padding: 40px;
     border: 16px;
     border-radius: 96px;
@@ -133,9 +133,37 @@ input {
     outline: none;
 }
 
-@media (max-width: 600px) {
+.message-box {
+    margin-top: 15px;
+    color: white;
+    font-weight: bold;
+}
 
-    /* תיקון לוגו וכותרת כדי שלא יתפסו את כל המסך */
+#toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 16px 25px;
+    border-radius: 50px;
+    opacity: 0; 
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+#toast.show {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+#toast.fadeout {
+    opacity: 0; 
+}
+
+@media (max-width: 600px) {
     .logo-header {
         font-size: 28px;
         margin-bottom: 5px;
@@ -146,32 +174,24 @@ input {
         margin: 0 0 15px 0;
     }
 
-    /* תיקון אינפוטים - הורדת ה-Padding המוגזם */
     .input-wrapper {
         background: rgba(255, 255, 255, 0.9);
         border-radius: 50px;
         padding: 10px 20px;
-        /* זה היה 35px וזה מה שעיוות את הכל */
         display: flex;
         align-items: center;
         box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
         height: 45px;
-        /* הגדרת גובה קבוע */
     }
 
-    /* תיקון המרווחים בטופס */
     .login-form {
         padding: 30px 20px !important;
-        /* הפחתה לנייד */
         gap: 15px !important;
-        /* צמצום ה-Gap הכללי */
         border-radius: 30px !important;
     }
 
-    /* תיקון הקישורים */
     .forgot-password {
         margin-top: -5px;
-        /* קירוב לסיסמה */
         margin-bottom: 5px;
         font-size: 14px;
     }
