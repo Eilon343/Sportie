@@ -17,10 +17,10 @@ function navigateTo(section) {
     if (pages[section]) window.location.href = pages[section];
 }
 
-/* Nav items use plain <a href="..."> links + a pre-applied .active
-   class on the matching item per page, so the browser handles
+/* active class on the matching item per page, so the browser handles
    navigation. wireNav() is kept for spec compatibility and any
    future programmatic hook-up. */
+
 function wireNav() {
     // intentionally empty
 }

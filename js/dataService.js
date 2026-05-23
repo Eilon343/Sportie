@@ -8,9 +8,7 @@
 const DataService = {
 
     /* ---------- CONFIG ---------- */
-    // When switching to real API replace this URL
-    // with your backend endpoint:
-    // e.g. 'https://api.sportie.com/v1'
+    // When switching to real API this URL needed to be change with real endpoint:
     JSON_SOURCE: './ListOfTrainees.JSON',
 
     /* ---------- RAW FETCH ---------- */

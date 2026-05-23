@@ -105,7 +105,6 @@ function renderTrainees(traineesArray) {
         last.className = 'trainee-last-activity';
         last.textContent = t.lastActivity ?? '';
 
-        // Chevron
         const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         chevron.setAttribute('class', 'trainee-chevron');
         chevron.setAttribute('viewBox', '0 0 16 16');

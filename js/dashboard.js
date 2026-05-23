@@ -38,7 +38,6 @@ function wireClientsPanel() {
     });
 }
 
-/* ---------- Chart.js: Overview of Clients ---------- */
 function renderOverviewChart() {
     const canvas = document.getElementById('overviewChart');
     if (!canvas || typeof Chart === 'undefined') return;
@@ -47,7 +46,6 @@ function renderOverviewChart() {
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
-    // Placeholder — all zeros until updateChartData() injects real values.
     const data   = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     overviewChart = new Chart(canvas, {
@@ -125,7 +123,6 @@ function renderOverviewChart() {
     });
 }
 
-/* ---------- Data injection points (DB-ready) ---------- */
 function renderClients(clientsArray) {
     // TODO: receives array of {name, avatarColor, avatarUrl}
     //       clears empty state and renders client rows dynamically
@@ -144,7 +141,6 @@ function renderClients(clientsArray) {
 
     if (empty) empty.classList.add('hidden');
 
-    // Same panel-relative top positions used in the static design:
     const rowTops = [125, 210, 294, 379, 464, 549, 634, 719];
 
     clientsArray.slice(0, rowTops.length).forEach((client, i) => {
