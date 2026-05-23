@@ -43,9 +43,12 @@ function renderOverviewChart() {
     const canvas = document.getElementById('overviewChart');
     if (!canvas || typeof Chart === 'undefined') return;
 
-    const labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'];
+    const labels = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
     // Placeholder — all zeros until updateChartData() injects real values.
-    const data   = [0, 0, 0, 0, 0, 0, 0];
+    const data   = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     overviewChart = new Chart(canvas, {
         type: 'line',
@@ -77,7 +80,7 @@ function renderOverviewChart() {
                 legend: { display: false },
                 tooltip: {
                     callbacks: {
-                        label: ctx => `${ctx.parsed.y}%`
+                        label: ctx => `${ctx.parsed.y} active trainees`
                     }
                 }
             },
@@ -97,13 +100,18 @@ function renderOverviewChart() {
                 },
                 y: {
                     min: 0,
-                    max: 20,
+                    title: {
+                        display: true,
+                        text: 'Active Trainees',
+                        font: { family: "'Inter', sans-serif", size: 12 },
+                        color: '#000'
+                    },
                     ticks: {
-                        stepSize: 5,
+                        stepSize: 1,
                         font: { family: "'Inter', sans-serif", size: 10 },
                         color: '#000',
                         padding: 6,
-                        callback: v => `${v}%`
+                        callback: value => value
                     },
                     grid: {
                         color: '#A8A8A8',
@@ -166,12 +174,12 @@ function renderClients(clientsArray) {
 }
 
 function updateChartData(newDataArray) {
-    // TODO: receives array of 7 weekly values; updates chart + clears overlay
+    // Receives array of 12 monthly values (Jan–Dec); updates chart + clears overlay.
     console.log('updateChartData called with:', newDataArray);
 
     if (!overviewChart || !Array.isArray(newDataArray)) return;
 
-    overviewChart.data.datasets[0].data = newDataArray.slice(0, 7);
+    overviewChart.data.datasets[0].data = newDataArray.slice(0, 12);
     overviewChart.update();
 
     const overlay = document.getElementById('chartEmptyOverlay');
@@ -202,4 +210,48 @@ document.addEventListener('DOMContentLoaded', () => {
     wireStatCards();
     wireClientsPanel();
     renderOverviewChart();
+
+    setTimeout(() => {
+        const session = DataService.getSession();
+        if (!session) return;
+
+        const { trainer, trainees } = session;
+
+        // Stat cards
+        const activeCount = trainees.filter(t =>
+            t.status === 'active'
+        ).length;
+
+        const avgProgress = trainees.length
+            ? Math.round(
+                trainees.reduce((sum, t) =>
+                    sum + t.progress, 0
+                ) / trainees.length
+            )
+            : 0;
+
+        updateStatCards({
+            totalClients:  trainees.length,
+            activeClients: activeCount,
+            workouts:      '--',
+            avgProgress:   avgProgress + '%'
+        });
+
+        // Most Active Clients panel — sort by progress descending, take top 8
+        const topClients = [...trainees]
+            .sort((a, b) => b.progress - a.progress)
+            .slice(0, 8);
+        renderClients(topClients);
+
+        // Chart — fetched via DataService so the dashboard never reads the
+        // trainer object directly. Swap the function body in dataService.js
+        // when the real analytics endpoint is wired up.
+        DataService.getMonthlyActiveTrainees(trainer.id)
+            .then(monthlyData => {
+                updateChartData(monthlyData);
+            })
+            .catch(err => {
+                console.error('Failed to load monthly data:', err);
+            });
+    }, 0);
 });

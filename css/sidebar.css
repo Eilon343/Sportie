@@ -54,10 +54,6 @@
 }
 
 .nav-item {
-    /* `top: unset !important` overrides leftover inline style="top:NNNpx"
-       attributes on the nav anchors (from the previous absolute-positioned
-       design). HTML is untouched per spec — this re-anchors them to the
-       flex flow. */
     position: relative;
     left: unset;
     top: unset !important;
@@ -135,7 +131,6 @@
     line-height: 42px;
 }
 
-/* Bell — absolute page left:1208 → relative to topbar: 1208 - 240 = 968 */
 .bell-btn {
     position: absolute;
     left: 968px;
@@ -149,7 +144,6 @@
     justify-content: center;
 }
 
-/* User-area white box — absolute page left:1252 → 1252 - 240 = 1012 */
 .user-area {
     position: absolute;
     left: 1012px;
@@ -161,7 +155,6 @@
     cursor: pointer;
 }
 
-/* Avatar circle — placeholder: dashed border + person icon (no real account yet) */
 .user-avatar {
     position: absolute;
     left: 13px;
@@ -179,7 +172,6 @@
 
 .user-avatar-icon { display: block; }
 
-/* Name — placeholder color until setTrainerProfile() wires real data */
 .user-name {
     position: absolute;
     left: 48px;
@@ -191,7 +183,6 @@
     white-space: nowrap;
 }
 
-/* Chevron — page left:1392 → relative: 1392 - 1252 = 140 */
 .user-chevron {
     position: absolute;
     left: 140px;

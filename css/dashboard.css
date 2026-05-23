@@ -49,7 +49,7 @@
     text-align: center;
     font-size: 40px;
     font-weight: 400;
-    color: #999;            /* greyed out — replaced via updateStatCards() */
+    color: #999;
     line-height: 1.2;
 }
 
@@ -59,7 +59,6 @@
     font-size: 36px;
 }
 
-/* "No data yet" subtitle — hidden once updateStatCards() injects real values */
 .stat-subtitle {
     position: absolute;
     left: 0;
@@ -101,7 +100,6 @@
     height: 400px;
 }
 
-/* Empty-data overlay sits above the canvas; cleared by updateChartData() */
 .chart-empty-overlay {
     position: absolute;
     inset: 0;
@@ -131,7 +129,6 @@
     border-radius: 12px;
 }
 
-/* "View All" link — page left:1303 top:106 → relative: 188, 7 */
 .clients-view-all {
     position: absolute;
     left: 188px;
@@ -146,7 +143,6 @@
     text-decoration: underline;
 }
 
-/* Title — page left:1145 top:145 → relative: 30, 46 */
 .clients-title {
     position: absolute;
     left: 30px;
@@ -156,7 +152,6 @@
     color: #000;
 }
 
-/* Inner list background — page left:1140 top:198 → relative: 25, 99 */
 .clients-list-bg {
     position: absolute;
     left: 25px;
@@ -167,7 +162,6 @@
     border-radius: 12px;
 }
 
-/* Client rows — left page 1150 → relative 35; inline `top` is panel-relative */
 .client-row {
     position: absolute;
     left: 35px;
@@ -184,7 +178,6 @@
     transform: translateY(-1px);
 }
 
-/* Avatar — left page 1160 → relative to row: 10; vertical offset 5 (e.g. 229-224) */
 .client-avatar {
     position: absolute;
     left: 10px;
@@ -194,7 +187,6 @@
     border-radius: 100px;
 }
 
-/* Name — left page 1233 → relative to row: 83 */
 .client-name {
     position: absolute;
     left: 83px;
@@ -206,10 +198,9 @@
     white-space: nowrap;
 }
 
-/* Empty state for clients list — covers the .clients-list-bg area */
 .clients-empty {
     position: absolute;
-    left: 25px;     /* same as .clients-list-bg */
+    left: 25px;   
     top: 99px;
     width: 230px;
     height: 760px;

@@ -37,8 +37,7 @@ function onUserMenu() {
 }
 
 function onLogout() {
-    console.log('Logout triggered');
-    // TODO: call auth signOut API before redirect
+    DataService.clearSession();
     window.location.href = 'login.html';
 }
 
@@ -55,24 +54,27 @@ function wireLogout() {
     if (btn) btn.addEventListener('click', onLogout);
 }
 
-/* ---------- Trainer profile injection (DB-ready) ---------- */
-function setTrainerProfile(name, avatarUrl) {
-    // TODO: receives trainer name string and optional avatar URL
-    console.log('setTrainerProfile called with:', name, avatarUrl);
+/* ---------- Trainer profile (top-right user area) ---------- */
+function applyTrainerProfile(trainer) {
+    if (!trainer) return;
 
     const nameEl   = document.querySelector('.user-name');
     const avatarEl = document.querySelector('.user-avatar');
-    if (nameEl && name) {
-        nameEl.textContent = name;
+
+    if (nameEl) {
+        nameEl.textContent = trainer.name;
         nameEl.style.color = '#000';
     }
+
     if (avatarEl) {
         avatarEl.style.border = 'none';
-        if (avatarUrl) {
-            avatarEl.style.background = `#D9D9D9 url("${avatarUrl}") center/cover no-repeat`;
+        if (trainer.avatarUrl) {
+            avatarEl.style.background =
+                `url("${trainer.avatarUrl}") center/cover no-repeat`;
         } else {
-            avatarEl.style.background = '#D9D9D9';
+            avatarEl.style.background = trainer.avatarColor;
         }
+        // Hide the placeholder dashed icon
         const icon = avatarEl.querySelector('.user-avatar-icon');
         if (icon) icon.style.display = 'none';
     }
@@ -95,6 +97,19 @@ document.addEventListener('DOMContentLoaded', () => {
     wireNav();
     wireTopBar();
     wireLogout();
+
+    const session = DataService.getSession();
+    if (!session) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Make session available to ALL page JS files
+    window.sportieSession = session;
+
+    // Apply trainer profile to top-right on ALL pages
+    applyTrainerProfile(session.trainer);
+
     scaleCanvas();
     window.addEventListener('resize', scaleCanvas);
 });

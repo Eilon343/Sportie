@@ -7,10 +7,10 @@
 /* ===================== CONTENT AREA WRAPPER ===================== */
 .trainees-content {
     position: absolute;
-    left: 260px;                          /* starts after sidebar */
-    top: 64px;                            /* starts after topbar */
-    width: calc(1440px - 260px);          /* fills remaining width  = 1180px */
-    height: calc(1024px - 64px);          /* fills remaining height =  960px */
+    left: 260px;                          
+    top: 64px;                            
+    width: calc(1440px - 260px);          
+    height: calc(1024px - 64px);          
     padding: 24px 32px;
     box-sizing: border-box;
     display: flex;
@@ -22,7 +22,7 @@
 
 /* ===================== TOOLBAR ROW (subtitle, search, filter) ===================== */
 .trainees-subtitle {
-    margin-right: auto;                   /* pushes search + filter to the right */
+    margin-right: auto;                  
     font-size: 20px;
     font-weight: 400;
     color: #000;
@@ -30,7 +30,6 @@
     line-height: 40px;
 }
 
-/* Search bar — flex item, not absolute */
 .trainees-search {
     flex: 0 0 320px;
     height: 40px;
@@ -66,9 +65,13 @@
     font-weight: 600;
 }
 
-/* Filter button — flex item, not absolute */
-.trainees-filter {
+.filter-wrapper {
+    position: relative;
     flex: 0 0 200px;
+}
+
+.trainees-filter {
+    width: 100%;
     height: 40px;
     background: #FFFFFF;
     border: 1px solid #C9C9C9;
@@ -82,6 +85,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    box-sizing: border-box;
 }
 
 .trainees-filter:hover {
@@ -101,7 +105,6 @@
     display: none;
 }
 
-/* Column header row — full width, grey, rounded top */
 .trainees-header {
     flex: 0 0 100%;
     width: 100%;
@@ -111,7 +114,7 @@
     padding-left: 32px;
     background: #F4F4F4;
     border-radius: 15px 15px 0 0;
-    margin-top: 24px;                     /* gap from toolbar */
+    margin-top: 24px;
 }
 
 .th {
@@ -123,7 +126,6 @@
     color: #686868;
 }
 
-/* Column-label lefts (relative to header padding-box) */
 .th-avatar        { left: 0;     }
 .th-name          { left: 151px; }
 .th-status        { left: 338px; }
@@ -131,7 +133,6 @@
 .th-progress      { left: 677px; }
 .th-last-activity { left: 818px; }
 
-/* Inner white table area — full width, rounded bottom, with the card's shadow */
 .trainees-inner {
     flex: 0 0 100%;
     width: 100%;
@@ -173,7 +174,6 @@
     background: rgba(0, 128, 15, 0.04);
 }
 
-/* Row columns — relative to row's left edge */
 .trainee-avatar {
     position: absolute;
     left: 13px;
@@ -294,4 +294,53 @@
     font-size: 14px;
     font-weight: 400;
     color: #BBB;
+}
+
+/* ===================== FILTER DROPDOWN ===================== */
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    top: 44px;        /* just below the button */
+    left: 0;          /* aligned with button left edge */
+    width: 200px;
+    background: #FFFFFF;
+    border: 1px solid #C9C9C9;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.filter-dropdown.open {
+    display: block;
+}
+
+.filter-option {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.12s ease;
+}
+
+.filter-option:hover {
+    background: #F6F7F8;
+}
+
+.filter-option.active {
+    color: #00800F;
+    font-weight: 600;
+    background: rgba(10, 255, 18, 0.08);
+}
+
+.filter-btn-active {
+    border-color: #00800F !important;
+    color: #00800F !important;
 }

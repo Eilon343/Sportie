@@ -123,12 +123,20 @@
         </label>
 
         <!-- Filter button -->
-        <button class="trainees-filter" type="button">
-            <svg class="trainees-filter-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 3h12M4 8h8M6 13h4" stroke="#878787" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            <span>Filter clients</span>
-        </button>
+        <div class="filter-wrapper">
+            <button class="trainees-filter" type="button">
+                <svg class="trainees-filter-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 3h12M4 8h8M6 13h4" stroke="#878787" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Filter clients</span>
+            </button>
+            <div class="filter-dropdown" id="filterDropdown">
+                <button class="filter-option active" data-status="all">All</button>
+                <button class="filter-option" data-status="active">Active</button>
+                <button class="filter-option" data-status="paused">Paused</button>
+                <button class="filter-option" data-status="finished">Finished</button>
+            </div>
+        </div>
 
         <!-- Table outer card -->
         <section class="trainees-table-card"></section>
@@ -163,6 +171,7 @@
 
     </div>
 
+    <script src="js/dataService.js"></script>
     <script src="js/base.js"></script>
     <script src="js/trainees.js"></script>
 </body>

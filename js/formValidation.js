@@ -52,11 +52,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        showToast("Login successful!", "green");
-
-        setTimeout(() => {
-            window.location.href = "dashboard.html";
-        }, 2000);
+        DataService.loginTrainer(email, password)
+            .then(({ trainer, trainees }) => {
+                DataService.saveSession(trainer, trainees);
+                showToast('Login successful!', 'green');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            })
+            .catch(err => {
+                if (err.message === 'NO_ACCOUNT') {
+                    showToast('No account found. Please sign up!', 'red');
+                } else if (err.message === 'WRONG_PASSWORD') {
+                    showToast('Wrong password. Try again.', 'red');
+                } else {
+                    showToast('Failed to load data. Try again.', 'red');
+                }
+            });
     });
 
     document.getElementById("toggleLink").addEventListener("click", (e) => {

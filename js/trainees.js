@@ -1,8 +1,12 @@
 /* =============================================================
    trainees.js — Trainees List page only
-   Renders the trainee table from data, plus stubs for the
-   search, filter, and row-click interactions.
+   Loads trainer + trainee data from ListOfTrainees.JSON,
+   wires search/filter, and renders the table.
    ============================================================= */
+
+/* ---------- Module-level state ---------- */
+let allTrainees = [];
+let currentFilter = 'all';
 
 /* ---------- Stub handlers ---------- */
 function onTraineeClick(id) {
@@ -11,22 +15,36 @@ function onTraineeClick(id) {
 }
 
 function onSearchTrainees(value) {
-    console.log('Search:', value);
-    // TODO: filter rows by name
+    applyFilters(value);
 }
 
 function onFilterTrainees() {
-    console.log('Filter opened');
-    // TODO: open filter dropdown
+    const dropdown = document.getElementById('filterDropdown');
+    if (dropdown) dropdown.classList.toggle('open');
 }
 
-/* ---------- Row rendering (DB-ready) ---------- */
-function renderTrainees(traineesArray) {
-    // [{id, name, avatarColor, avatarUrl,
-    //   status:'active'|'paused'|'finished',
-    //   goal, progress, lastActivity}]
-    console.log('renderTrainees called with:', traineesArray);
+function applyFilters(searchQuery = '') {
+    let filtered = [...allTrainees];
 
+    if (currentFilter !== 'all') {
+        filtered = filtered.filter(t =>
+            t.status.toLowerCase() === currentFilter
+        );
+    }
+
+    if (searchQuery.trim()) {
+        filtered = filtered.filter(t =>
+            t.name.toLowerCase().includes(
+                searchQuery.toLowerCase().trim()
+            )
+        );
+    }
+
+    renderTrainees(filtered);
+}
+
+/* ---------- Row rendering ---------- */
+function renderTrainees(traineesArray) {
     const empty = document.getElementById('traineesEmpty');
     const list  = document.getElementById('traineesList');
     if (!list) return;
@@ -54,10 +72,17 @@ function renderTrainees(traineesArray) {
             avatar.style.background = t.avatarColor;
         }
 
-        // Name
-        const name = document.createElement('span');
-        name.className = 'trainee-name';
-        name.textContent = t.name ?? '';
+        // Name + trainer badge stack (inline-styled so no CSS changes are needed)
+        const nameCol = document.createElement('div');
+        nameCol.className = 'trainee-name';
+        nameCol.style.display = 'flex';
+        nameCol.style.flexDirection = 'column';
+        nameCol.style.alignItems = 'flex-start';
+        nameCol.style.gap = '4px';
+
+        const nameText = document.createElement('span');
+        nameText.textContent = t.name ?? '';
+        nameCol.appendChild(nameText);
 
         // Status badge
         const status = document.createElement('span');
@@ -70,10 +95,10 @@ function renderTrainees(traineesArray) {
         goal.className = 'trainee-goal';
         goal.textContent = t.goal ?? '';
 
-        // Progress
+        // Progress — append "%" since JSON stores a raw number
         const progress = document.createElement('span');
         progress.className = 'trainee-progress';
-        progress.textContent = t.progress ?? '';
+        progress.textContent = t.progress != null ? `${t.progress}%` : '';
 
         // Last activity
         const last = document.createElement('span');
@@ -89,7 +114,7 @@ function renderTrainees(traineesArray) {
             '<path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" ' +
             'stroke-linecap="round" stroke-linejoin="round"/>';
 
-        row.append(avatar, name, status, goal, progress, last, chevron);
+        row.append(avatar, nameCol, status, goal, progress, last, chevron);
         row.addEventListener('click', () => onTraineeClick(t.id));
 
         list.appendChild(row);
@@ -100,16 +125,67 @@ function renderTrainees(traineesArray) {
 function wireTrainees() {
     const searchInput = document.querySelector('.trainees-search-input');
     if (searchInput) {
-        searchInput.addEventListener('input', e => onSearchTrainees(e.target.value));
+        searchInput.addEventListener('input', e =>
+            onSearchTrainees(e.target.value)
+        );
     }
 
     const filterBtn = document.querySelector('.trainees-filter');
     if (filterBtn) {
         filterBtn.addEventListener('click', onFilterTrainees);
     }
+
+    wireFilterDropdown();
+}
+
+function wireFilterDropdown() {
+    const dropdown = document.getElementById('filterDropdown');
+    const filterBtn = document.querySelector('.trainees-filter');
+    if (!dropdown) return;
+
+    dropdown.querySelectorAll('.filter-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            dropdown.querySelectorAll('.filter-option')
+                .forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            currentFilter = btn.dataset.status;
+
+            if (filterBtn) {
+                if (currentFilter === 'all') {
+                    filterBtn.classList.remove('filter-btn-active');
+                } else {
+                    filterBtn.classList.add('filter-btn-active');
+                }
+            }
+
+            dropdown.classList.remove('open');
+
+            const searchInput = document.querySelector('.trainees-search-input');
+            applyFilters(searchInput?.value || '');
+        });
+    });
+
+    // Close when clicking outside the dropdown or the filter button
+    document.addEventListener('click', (e) => {
+        if (
+            !dropdown.contains(e.target) &&
+            !filterBtn?.contains(e.target)
+        ) {
+            dropdown.classList.remove('open');
+        }
+    });
 }
 
 /* ---------- Boot ---------- */
 document.addEventListener('DOMContentLoaded', () => {
     wireTrainees();
+
+    // window.sportieSession is set by base.js which runs before this file
+    // on every page (auth guard + trainer profile already applied there).
+    const session = window.sportieSession;
+    if (!session) return;
+
+    allTrainees = session.trainees;
+    renderTrainees(allTrainees);
 });
