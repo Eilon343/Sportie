@@ -4,6 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmPasswordGroup = document.getElementById("confirmPasswordGroup");
 
     let isLogin = true;
+
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.querySelector('.toggle-password');
+
+    if (toggleIcon) {
+      toggleIcon.addEventListener('click', () => {
+        const isHidden = passwordInput.type === 'password';
+        passwordInput.type = isHidden ? 'text' : 'password';
+        toggleIcon.classList.toggle('fa-eye-slash', !isHidden);
+        toggleIcon.classList.toggle('fa-eye', isHidden);
+      });
+    }
+
     authForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -42,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Login successful!", "green");
 
         setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "dashboard.html";
         }, 2000);
     });
 
