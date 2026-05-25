@@ -1,8 +1,6 @@
-/* =============================================================
-   base.css — shared by ALL pages
+/* base.css — shared by ALL pages
    Reset, body/canvas/scaling primitives, generic resets,
-   and the .screen-placeholder coming-soon block.
-   ============================================================= */
+   and the .screen-placeholder coming-soon block.*/
 
 /* ----- Reset ----- */
 * {

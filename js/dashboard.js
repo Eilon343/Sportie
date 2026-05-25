@@ -1,8 +1,6 @@
-/* =============================================================
-   dashboard.js — Dashboard page only
+/* dashboard.js — Dashboard page only
    Stat cards, Chart.js overview, and Most Active Clients panel.
-   Shared sidebar/topbar/scaling lives in js/base.js.
-   ============================================================= */
+   Shared sidebar/topbar/scaling lives in js/base.js. */
 
 /* ---------- Module-level state ---------- */
 let overviewChart = null;
@@ -239,9 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .slice(0, 8);
         renderClients(topClients);
 
-        // Chart — fetched via DataService so the dashboard never reads the
-        // trainer object directly. Swap the function body in dataService.js
-        // when the real analytics endpoint is wired up.
         DataService.getMonthlyActiveTrainees(trainer.id)
             .then(monthlyData => {
                 updateChartData(monthlyData);

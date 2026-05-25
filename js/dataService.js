@@ -1,9 +1,6 @@
-/* =================================================
-   dataService.js — Single source of truth for data.
-   To switch from JSON to a real API/database:
-   only change the functions in this file.
-   Nothing else in the app needs to change.
-   ================================================= */
+/* dataService.js — Single source for data.
+   To switch from JSON to real database: only change the functions in this file.
+   nothing else in the app needs to change.*/
 
 const DataService = {
 

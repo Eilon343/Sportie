@@ -1,8 +1,6 @@
-/* =============================================================
-   base.js — shared by ALL pages
+/* base.js — shared by ALL pages
    Sidebar/topbar wiring, navigation routing, viewport scaling,
-   and trainer-profile injection point.
-   ============================================================= */
+   and trainer-profile injection point.  */
 
 /* ---------- Navigation ---------- */
 function navigateTo(section) {

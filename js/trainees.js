@@ -1,8 +1,6 @@
-/* =============================================================
-   trainees.js — Trainees List page only
+/* trainees.js — Trainees List page only
    Loads trainer + trainee data from ListOfTrainees.JSON,
-   wires search/filter, and renders the table.
-   ============================================================= */
+   wires search/filter, and renders the table. */
 
 /* ---------- Module-level state ---------- */
 let allTrainees = [];
@@ -72,7 +70,7 @@ function renderTrainees(traineesArray) {
             avatar.style.background = t.avatarColor;
         }
 
-        // Name + trainer badge stack (inline-styled so no CSS changes are needed)
+        // Name of the trainee
         const nameCol = document.createElement('div');
         nameCol.className = 'trainee-name';
         nameCol.style.display = 'flex';
@@ -180,8 +178,6 @@ function wireFilterDropdown() {
 document.addEventListener('DOMContentLoaded', () => {
     wireTrainees();
 
-    // window.sportieSession is set by base.js which runs before this file
-    // on every page (auth guard + trainer profile already applied there).
     const session = window.sportieSession;
     if (!session) return;
 
